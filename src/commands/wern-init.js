@@ -1,12 +1,12 @@
 import chalk from 'chalk';
-import program from 'commander';
+import commander from 'commander';
 import fullname from 'fullname';
 import inquirer from 'inquirer';
 import moment from 'moment';
 import actions from '../generate/actions'
 import helpers from '../util/ejsHelpers';
 
-program
+commander
   .description('Create a MERN app in current directory!')
   .option('-t, --target [name]', 'Initialize the project with a variant [mern-starter]', 'mern-starter')
   .parse(process.argv);
@@ -51,6 +51,9 @@ fullname().then((name) => {
     version = version || '0.1.0';
 
     const actionsInst = actions.create();
+    //设置模板根目录
+    actionsInst.setContext('initial');
+
     actionsInst.copyTpl('package', 'package.json', {
       appName,
       version,

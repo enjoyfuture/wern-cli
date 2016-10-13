@@ -18,24 +18,32 @@ cd demo
 wern init
 ```
 
-Install Dependencies
+## Install Dependencies
 
 ```bash
 cd demo && npm install
 ```
 
-start your project server:
+### start your project server:
 
 ```bash
 npm install -g gulp
 gulp server
 ```
 
-build your project:
+### build your project:
 
 ```bash
 gulp build
 ```
+
+## Development
+
+### wern templates
+
+The wern-cli generator react templates can download from the github `https://github.com/enjoyfuture/wern-template`.
+
+The newest version is 0.1.0.
 
 ## Change Log
 

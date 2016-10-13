@@ -8,6 +8,10 @@ import glob from 'glob';
 
 class Actions {
 
+  constructor() {
+    this.context = '';
+  }
+
   /**
    * 同步创建目录
    * @param dir
@@ -141,11 +145,15 @@ class Actions {
    * @param source
    * @returns {string}
    */
-  templatePath(source = {}) {
+  templatePath(source = []) {
     let filepath = path.join(...source);
 
     if (!pathIsAbsolute(filepath)) {
-      filepath = path.join(__dirname, '..', '..', 'templates', ...source);
+      if (this.context) {
+        filepath = path.join(__dirname, '..', '..', 'templates', this.context, ...source);
+      } else {
+        filepath = path.join(__dirname, '..', '..', 'templates', ...source);
+      }
     }
 
     return filepath;
@@ -156,7 +164,7 @@ class Actions {
    * @param dest
    * @returns {{filePath}|{filePath, configName}|*|string|Promise.<*>}
    */
-  destinationPath(dest = {}) {
+  destinationPath(dest = []) {
     let filepath = path.join(...dest);
     if (!pathIsAbsolute(filepath)) {
       const pwd = process.env.pwd || process.env.Pwd || process.env.PWD;
@@ -165,6 +173,10 @@ class Actions {
     // 以下方法可以指定当前工作目录
     //process.chdir(filepath);
     return filepath;
+  }
+
+  setContext(context = '') {
+    this.context = context;
   }
 }
 
