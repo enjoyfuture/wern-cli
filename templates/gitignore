@@ -1,0 +1,9 @@
+.idea
+node_modules
+dist
+zip
+
+# 一些不需要提交的 js 文件
+client/containers/Root.js
+client/store/index.js
+

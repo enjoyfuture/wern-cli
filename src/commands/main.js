@@ -3,7 +3,6 @@ import pjson from '../../package.json';
 
 program
   .version(pjson.version)
-  .option('-v, --version', 'check version')
   .description('Initialize a WERN powered project')
   .command('init [name]', 'Initialize a WERN project.')
   .command('list', 'List WERN variants')
