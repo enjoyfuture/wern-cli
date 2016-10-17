@@ -1,0 +1,22 @@
+import React, {Component, PropTypes} from 'react';
+import classNames from 'classnames/bind';
+// Import scss
+import styles from './<%= name %>.scss';
+
+const cx = classNames.bind(styles);
+
+class <%= helpers.capitalize(name) %> extends Component {
+  static propTypes = {
+
+  };
+
+  render() {
+    return (
+      <div className={cx('<%= name %>-page')}>
+        <%= helpers.capitalize(name) %> Page. You can review this page use the url 'http://localhost:9090/<%= name %>'.
+      </div>
+    );
+  }
+}
+
+export default <%= helpers.capitalize(name) %>;

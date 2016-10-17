@@ -1,11 +1,8 @@
 {
   "name": "wern-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
-    "name": [
-      "Linder Wang",
-      "Weixin"
-    ]
+    "name": "Linder Wang"
   },
   "keywords": [
     "react",
@@ -18,17 +15,19 @@
   "description": "A Comprehensive Guide for React Boilerplate containing Webpack, Gulp, React, Redux, Router, Immutable, etc.",
   "main": "lib",
   "bin": {
-    "wern": "./bin/wern.js"
+    "wern": "./bin/wern.js",
+    "werng": "./bin/werng.js"
   },
   "watch": {
     "compile": "src/**/*.js"
   },
   "scripts": {
-    "compile": "babel --presets es2015 -d lib/ src/ && sudo npm link",
+    "compile": "rimraf lib && babel --presets es2015 -d lib/ src/ && sudo npm link",
     "watch": "npm-watch"
   },
   "dependencies": {
     "chalk": "^1.1.3",
+    "cli-table": "^0.3.1",
     "commander": "^2.9.0",
     "ejs": "^2.5.2",
     "fullname": "^3.1.0",
@@ -46,7 +45,8 @@
     "eslint": "^3.7.1",
     "eslint-plugin-flowtype": "^2.20.0",
     "eslint-plugin-react": "^6.4.0",
-    "npm-watch": "^0.1.6"
+    "npm-watch": "^0.1.6",
+    "rimraf": "^2.5.4"
   },
   "engines": {
     "node": ">=4.0.0"

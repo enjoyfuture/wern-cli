@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
-import api from '../helper/middleware-api';
+import api from '../util/middleware-api';
 
 // 使用中间件来处理
 export default function configureStore(history, initialState) {

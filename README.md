@@ -28,6 +28,7 @@ cd demo && npm install
 
 ```bash
 npm install -g gulp
+gulp dll
 gulp server
 ```
 
@@ -37,13 +38,33 @@ gulp server
 gulp build
 ```
 
-## Development
+## Generate your module
+
+```
+werng moduleName
+```
+
+Note: The "moduleName" is you enter module name. After exec this command, 
+it will create "react component", "redux action", ande "redux reducer" etc.
+
+
+## Wern Cli Development
 
 ### wern templates
 
 The wern-cli generator react templates can download from the github `https://github.com/enjoyfuture/wern-template`.
 
-The newest version is 0.1.0.
+### compile 
+
+```
+npm run compile
+```
+
+### npm publish
+
+```
+npm publish
+```
 
 ## Change Log
 

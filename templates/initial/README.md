@@ -38,3 +38,12 @@ https://github.com/xxx/<%= appName %>/issues
 
 Please view [here](./CHANGELOG.md)
 
+## Digressions
+
+* node-sass 安装失败解决方法
+    ```
+    npm install -g cnpm
+    SASS_BINARY_SITE=https://npm.taobao.org/mirrors/node-sass/ npm install node-sass
+    ```
+    
+

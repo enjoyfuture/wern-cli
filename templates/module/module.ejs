@@ -1,29 +1,19 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import classNames from 'classnames/bind';
-// Import scss
-import styles from './<%= helpers.capitalize(name) %>.scss';
-
-const cx = classNames.bind(styles);
-
-class <%= helpers.capitalize(name) %> extends Component {
-  render() {
-    return (
-
-    );
-  }
-}
+import * as <%= name %>Action from '../action';
+import <%= helpers.capitalize(name) %> from './components/<%= helpers.capitalize(name) %>';
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    <%= name %>: state.get('<%= name %>')
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-<%= helpers.capitalize(name) %>.propTypes = {
+  return {
+    <%= name %>Action: bindActionCreators(<%= name %>Action, dispatch)
+  };
 };
 
 export default connect(

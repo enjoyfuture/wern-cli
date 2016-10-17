@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import webpack from 'webpack';
 import HtmlwebpackPlugin from 'html-webpack-plugin';
 import precss from 'precss';
@@ -6,19 +7,21 @@ import autoprefixer from 'autoprefixer';
 
 const ip = 'localhost';
 const port = 9090;
-
 const hotDevServer = 'webpack/hot/dev-server';
 // https://github.com/webpack/webpack-dev-server
 const webpackDevServer = 'webpack-dev-server/client?http://localhost:9090';
-
 const appPath = path.resolve(__dirname, 'client');
 
+//判断 dll 文件是否已生成
+let dllExist = false;
+try {
+  fs.statSync(path.resolve(appPath, 'dist', 'vendor.dll.js'));
+  dllExist = false;
+} catch (e) {
+  dllExist = false;
+}
+
 const webpackConfig = {
-  // eslint 配置
-  eslint: {
-    emitError: true, // 验证失败，终止
-    configFile: '.eslintrc'
-  },
   cache: true, //开启缓存,增量编译
   devtool: 'source-map', //生成 source map文件
   stats: {
@@ -47,26 +50,16 @@ const webpackConfig = {
     publicPath: '/',
     // 代理设置
     proxy: {
-      '/xxx/*': {
+      '/api/*': {
         target: 'http://localhost:3000',
         secure: true
       }
     }
   },
-  postcss () {
-    return {
-      defaults: [precss, autoprefixer],
-      cleaner: [autoprefixer({
-        browsers: ['Chrome >= 35', 'Firefox >= 38', 'Edge >= 12',
-          'Explorer >= 8', 'Android >= 4.3', 'iOS >=8', 'Safari >= 8']
-      })]
-    };
-  },
 
   resolve: {
-    root: [appPath], // 设置要加载模块根路径，该路径必须是绝对路径
     //自动扩展文件后缀名
-    extensions: ['', '.js', '.jsx', '.scss', '.json'],
+    extensions: ['.js', '.jsx', '.scss', '.json'],
   },
 
   // 入口文件 让webpack用哪个文件作为项目的入口
@@ -83,30 +76,34 @@ const webpackConfig = {
   },
 
   module: {
-    // https://github.com/MoOx/eslint-loader
-    preLoaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules.*!/,
-      loader: 'eslint'
-    }],
     loaders: [
+      // https://github.com/MoOx/eslint-loader
+      /*{
+       test: /\.jsx?$/,
+       exclude: /node_modules.*!/,
+       loader: 'eslint'
+       },*/
       {
         test: /\.jsx?$/,
         loader: 'babel', // 'babel-loader' is also a legal name to reference
         exclude: /node_modules/,
-        cacheDirectory: true // 开启缓存
       },
       // https://github.com/webpack/url-loader
       {
-        test: /\.(png|jpg|gif|woff|woff2|svg)$/,
-        loader: 'url?limit=10000', // 10kb
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'url',
         query: {
-          mimetype: 'image/png'
+          name: '[hash].[ext]',
+          limit: 10000, // 10kb
         }
       },
       {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader?modules&localIdentName=[name]_[local]_[hash:base64:5]!postcss-loader?pack=cleaner',
+      },
+      {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]__[hash:base64:5]&sourceMap!postcss-loader?pack=cleaner!sass-loader',
+        loader: 'style-loader!css-loader?modules&localIdentName=[name]_[local]_[hash:base64:5]!postcss-loader?pack=cleaner!sass-loader',
       },
       {
         test: /\.(mp4|ogg)$/,
@@ -123,12 +120,23 @@ const webpackConfig = {
         'NODE_ENV': JSON.stringify('development'),
       }
     }),
-    new webpack.DllReferencePlugin({
-      context: __dirname,
-      /**
-       * 在这里引入 manifest 文件
-       */
-      manifest: require('./client/dist/vendor-manifest.json')
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        // eslint 配置
+        eslint: {
+          emitError: true, // 验证失败，终止
+          configFile: '.eslintrc'
+        },
+        postcss () {
+          return {
+            defaults: [precss, autoprefixer],
+            cleaner: [autoprefixer({
+              browsers: ['Chrome >= 35', 'Firefox >= 38', 'Edge >= 12',
+                'Explorer >= 8', 'Android >= 4.3', 'iOS >=8', 'Safari >= 8']
+            })]
+          };
+        },
+      }
     })
   ]
 };
@@ -138,6 +146,17 @@ const webpackConfig = {
 // https://www.npmjs.com/package/html-webpack-plugin
 const entry = webpackConfig.entry;
 
+if (dllExist) {
+  webpackConfig.plugins.push(
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      /**
+       * 在这里引入 manifest 文件
+       */
+      manifest: require('./client/dist/vendor-manifest.json')
+    }),
+  );
+}
 // 为 HtmlwebpackPlugin 设置配置项，与 entry 键对应，根据需要设置其参数值
 const htmlwebpackPluginConfig = {
   index: {

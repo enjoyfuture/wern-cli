@@ -1,0 +1,18 @@
+@import "../app/scss/components/loading";
+@import "../app/scss/components/btn";
+
+.no-items {
+  width: 8rem;
+  height: 8rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.link-group > a {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.link-group > a:last-child {
+  margin-right: 0;
+}

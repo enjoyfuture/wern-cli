@@ -1,3 +1,11 @@
-// Export Constants
+import {EXAMPLE} from './constant';
 
 // Export Actions
+export function example(demo = '') {
+  return {
+    type: EXAMPLE,
+    demo,
+  };
+}
+
+

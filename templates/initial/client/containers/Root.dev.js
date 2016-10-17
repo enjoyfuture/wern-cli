@@ -6,7 +6,7 @@ import {syncHistoryWithStore} from 'react-router-redux'
 import Immutable from 'immutable';
 import createRoutes from '../routes';
 import configureStore from '../store'
-import createSelectLocationState from '../helper/createSelectLocationState';
+import createSelectLocationState from '../util/createSelectLocationState';
 
 import DevTools from './DevTools';
 import Perf from 'react-addons-perf';

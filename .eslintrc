@@ -137,7 +137,7 @@
     "no-new-require": 2, // 不用对表达式 require 直接使用 new,例如 var appHeader = new require('app-header');
     "no-path-concat": 2,//不要使用 __dirname 或 __filename 与字符串连接生成路径，应该使用 path.join(__dirname, "foo.js"); 或 path.resolve(__dirname, "foo.js");
     //"no-process-env": 2,//在node环境中，不建议使用 process.envn
-    "no-process-exit": 2,//不要直接调用 process.exit();
+    //"no-process-exit": 2,//不要直接调用 process.exit();
     //"no-restricted-imports": [2, "import1", "import2"], //禁止导入指定的 module
     "no-restricted-modules": 2,//限制使用某些模块，比如 no-restricted-modules: [2, "fs"] ，不能使用fs模块
     //"no-sync": 2,//我们尽量使用异步方法来代替同步方法

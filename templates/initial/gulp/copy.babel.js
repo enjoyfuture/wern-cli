@@ -18,6 +18,7 @@ gulp.task('copy:prod', () => {
   const paths = [
     {src: 'client/store/configureStore.prod.js', dest: 'client/store/index.js'},
     {src: 'client/containers/Root.prod.js', dest: 'client/containers/Root.js'},
+    {src: 'client/favicon.ico', dest: 'dist/favicon.ico'},
   ];
   return $.copy2(paths);
 });

@@ -8,6 +8,7 @@ import autoprefixer from 'autoprefixer';
 
 // multiple extract instances
 const extractSCSS = new ExtractTextPlugin({filename: 'css/[name].[chunkhash].css', allChunks: true});
+const extractCSS = new ExtractTextPlugin({filename: 'css/[name].bootstrap.[chunkhash].css', allChunks: true});
 
 const webpackConfig = {
   devtool: 'hidden-source-map',
@@ -29,7 +30,7 @@ const webpackConfig = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css', '.scss'],
+    extensions: ['.js', '.jsx', '.css', '.scss'],
     modules: [
       'client',
       'node_modules',
@@ -53,11 +54,18 @@ const webpackConfig = {
         }
       },
       {
+        test: /\.css$/,
+        loader: extractCSS.extract({
+          fallbackLoader: 'style-loader',
+          loader: 'css-loader?modules&localIdentName=[name]_[local]_[hash:base64:5]!postcss-loader?pack=cleaner'
+        }),
+      },
+      {
         test: /\.scss$/,
         exclude: /node_modules/,
         loader: extractSCSS.extract({
           fallbackLoader: 'style-loader',
-          loader: 'css-loader?modules&localIdentName=[hash:base64]!postcss-loader?pack=cleaner!sass-loader'
+          loader: 'css-loader?modules&localIdentName=[name]_[local]_[hash:base64:5]!postcss-loader?pack=cleaner!sass-loader'
         })
       }, {
         test: /\.json$/,
@@ -72,12 +80,12 @@ const webpackConfig = {
         'NODE_ENV': JSON.stringify('production'),
       }
     }),
-
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: '[name].[chunkhash].js',
     }),
     extractSCSS,
+    extractCSS,
     new MappingPlugin({
       basePath: '/',
     }),
@@ -86,15 +94,20 @@ const webpackConfig = {
         warnings: false,
       }
     }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss () {
+          return {
+            defaults: [precss, autoprefixer],
+            cleaner: [autoprefixer({
+              browsers: ['Chrome >= 35', 'Firefox >= 38', 'Edge >= 12',
+                'Explorer >= 8', 'Android >= 4.3', 'iOS >=8', 'Safari >= 8']
+            })]
+          };
+        },
+      }
+    })
   ],
-
-  postcss: () => {
-    return {
-      defaults: [precss, autoprefixer],
-      cleaner: [autoprefixer({browsers: ['Chrome >= 35', 'Firefox >= 38', 'Edge >= 12',
-        'Explorer >= 8', 'Android >= 4.3', 'iOS >=8', 'Safari >= 8']})]
-    }
-  },
 };
 
 //创建 HtmlWebpackPlugin 的实例

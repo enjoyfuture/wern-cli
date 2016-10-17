@@ -85,6 +85,7 @@ fullname().then((name) => {
 
     actionsInst.directory('client', 'client');
     actionsInst.directory('gulp', 'gulp');
+    actionsInst.directory('mockjs-data', 'mockjs-data');
 
     console.log(chalk.green(''));
     console.log(chalk.green('---------------------------------------------------'));

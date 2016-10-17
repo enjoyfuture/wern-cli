@@ -6,6 +6,8 @@ requireDir('./gulp');
 //开发环境，启动服务
 gulp.task('server', ['copy:dev'], () => {
   gulp.start(['webpack:server']);
+  //开启 mockjs 服务
+  gulp.start(['mockjs']);
 });
 
 //编译
