@@ -2,8 +2,8 @@
  * 中间件，用来统一处理 fetch 请求
  */
 import assign from 'lodash/assign';
-import callApi from './/fetch';
-import errorHandler from '../util/errorHandler';
+import callApi from './fetch';
+import errorHandler from './errorHandler';
 
 export const CALL_API = Symbol('Call API');
 
@@ -16,7 +16,7 @@ export default store => next => action => {
   }
 
   //参数 clean 为 true 时，表示先清空数据，比如列表刷新时
-  const {url, types, options, body, clean} = callAPI;
+  const {url, body, method, types, options, clean} = callAPI;
 
   // 分别执行发送请求，成功或失败请求
   function actionWith(data) {
@@ -36,7 +36,7 @@ export default store => next => action => {
   }
 
   // Fetch 一个请求，并返回结果
-  return callApi({url, body, options}).then(
+  return callApi({url, body, method, options}).then(
     (json) => {
       const {data} = json;
       //调用成功 action，并把结果数据返回

@@ -1,0 +1,15 @@
+import React from 'react';
+import test from 'ava';
+import sinon from 'sinon';
+import {shallow} from 'enzyme';
+import <%= helpers.capitalize(name) %> from '../../components/<%= helpers.capitalize(name) %>';
+
+test('renders the <%= helpers.capitalize(name) %> properly', t => {
+  const wrapper = shallow(
+    <<%= helpers.capitalize(name) %>/>
+  );
+
+  t.is(wrapper.find('h1').first().text(), 'Hello World, Ni hao!');
+
+  t.regex(wrapper.find('p').at(0).text(), /You can review this page/);
+});

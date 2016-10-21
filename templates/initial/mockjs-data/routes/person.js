@@ -14,6 +14,7 @@ router.get('/list', (req, res) => {
   pagination.setItems(person.items);
   return res.json(pagination);
 });
+
 router.post('/', (req, res) => {
   const person = req.body;
   const {id, firstName, lastName} = person;
@@ -32,7 +33,16 @@ router.post('/', (req, res) => {
     });
   }
 });
+
 router.delete('/', (req, res) => {
+  const person = req.body;
+  console.log(req.body);
+  const {id} = person;
+  if (!id) {
+    return res.json({
+      success: false
+    });
+  }
   return res.json({
     success: true
   });

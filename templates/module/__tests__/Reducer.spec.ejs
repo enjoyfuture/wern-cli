@@ -1,0 +1,12 @@
+import test from 'ava';
+import Immutable, {Map} from 'immutable';
+import {example} from '../action';
+import <%= name %> from '../reducer';
+
+test('action for example is working',
+  t => {
+    const action = example('This is a unit test');
+    const stateAfter = Map({demo: 'This is a unit test'});
+    t.true(Immutable.is(<%= name %>(undefined, action), stateAfter));
+  }
+);

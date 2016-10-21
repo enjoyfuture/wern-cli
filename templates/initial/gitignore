@@ -2,6 +2,9 @@
 node_modules
 dist
 zip
+.nyc_output
+coverage
+eruda.js
 
 # 一些不需要提交的 js 文件
 client/containers/Root.js

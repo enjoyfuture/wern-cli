@@ -53,9 +53,7 @@ export function createTopic(content) {
       url: 'vote/topic', body: {
         count: 1,
         content
-      }, options: {
-        method: 'post'
-      }
+      }, method: 'post'
     }).then((res) => {
       return dispatch(createTopicSuccess(res.data));
     }, (error) => {
@@ -102,10 +100,12 @@ function fetchTopicsFailure(error) {
 export function incrementCount(id) {
   return (dispatch, getState) => {
     callApi({
-      url: 'vote/count', body: {
+      url: 'vote/count',
+      body: {
         id,
         type: 'increment'
-      }, options: {method: 'put'}
+      },
+      method: 'put'
     }).then((res) => {
       return dispatch({
         type: types.INCREMENT_COUNT,
@@ -124,7 +124,7 @@ export function decrementCount(id) {
       url: 'vote/count', body: {
         id,
         type: 'decrement'
-      }, options: {method: 'put'}
+      }, method: 'put'
     }).then((res) => {
       return dispatch({
         type: types.DECREMENT_COUNT,
@@ -141,7 +141,7 @@ export function destroyTopic(id) {
   return (dispatch, getState) => {
     callApi({
       url: `vote/topic/${id}`,
-      options: {method: 'delete'}
+      method: 'delete'
     }).then((res) => {
       return dispatch({
         type: types.DESTROY_TOPIC,

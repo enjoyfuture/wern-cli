@@ -40,7 +40,7 @@ actionsInst.copyTpl('module-constant.ejs', fileName, {});
 
 //Action
 fileName = [...modulePath, 'action.js'];
-actionsInst.copyTpl('module-actions.ejs', fileName, {});
+actionsInst.copyTpl('module-action.ejs', fileName, {});
 
 //Reducer
 fileName = [...modulePath, 'reducer.js'];
@@ -49,11 +49,29 @@ actionsInst.copyTpl('module-reducer.ejs', fileName, {
 });
 
 //scss
-fileName = [...modulePath, 'index.scss'];
+fileName = [...modulePath, `${moduleName}.scss`];
 actionsInst.copyTpl('module-scss.ejs', fileName, {
   name: moduleName,
   helpers
 });
+
+// Unit Test
+actionsInst.setContext('module/__tests__');
+
+fileName = [...modulePath, '__tests__', `${helpers.capitalize(moduleName)}Action.spec.js`];
+actionsInst.copy('Action.spec.ejs', fileName);
+
+fileName = [...modulePath, '__tests__', `${helpers.capitalize(moduleName)}Reducer.spec.js`];
+actionsInst.copyTpl('Reducer.spec.ejs', fileName, {
+  name: moduleName
+});
+
+fileName = [...modulePath, '__tests__', 'components', `${helpers.capitalize(moduleName)}.spec.js`];
+actionsInst.copyTpl(['components', 'Component.spec.ejs'], fileName, {
+  name: moduleName,
+  helpers
+});
+
 
 console.log(chalk.yellow(`Create module [${moduleName}] success`));
 

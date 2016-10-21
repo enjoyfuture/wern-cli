@@ -19,6 +19,24 @@ const appConfig = {
     SERVER_URL: '//localhost:9090/api/',
   },
 
+  //单元测试环境配置
+  test: {
+    /**
+     * 启动服务 ip
+     */
+    IP: 'localhost',
+
+    /**
+     * 启动服务端口
+     */
+    PORT: '9090',
+
+    /**
+     * 后台 url 路径
+     */
+    SERVER_URL: 'http://localhost:9090/api/',
+  },
+
   //生产环境配置
   production: {
     /**

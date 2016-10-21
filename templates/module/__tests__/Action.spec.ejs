@@ -1,0 +1,12 @@
+import test from 'ava';
+import {EXAMPLE} from '../constant';
+import {example} from '../action';
+
+test('should return the correct type for example',
+  t => {
+    t.deepEqual(example('This is a unit test'), {
+      type: EXAMPLE,
+      demo: 'This is a unit test',
+    });
+  }
+);

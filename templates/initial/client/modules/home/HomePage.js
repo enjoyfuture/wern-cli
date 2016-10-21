@@ -1,28 +1,29 @@
 import React, {Component, PropTypes} from 'react';
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import classNames from 'classnames/bind';
-import * as homeAction from './action';
+import {hello} from './action';
+import {setToast} from '../app/action';
 import bootstrap from '../../util/bootstrapCss';
-import styles from './home';
+import styles from './home.scss';
 
 const cx = classNames.bind(styles);
 
-class Home extends Component {
+export class Home extends Component {
   static propTypes = {
     home: PropTypes.object,
-    homeAction: PropTypes.object,
-    appAction: PropTypes.object,
+    dispatch: PropTypes.func
   };
 
   helloHandle = (e) => {
     e.stopPropagation();
-    this.props.homeAction.hello('开启 React Router Redux Immutable 之旅吧！');
+    this.props.dispatch(hello('开启 React Router Redux Immutable 之旅吧！'));
   };
 
   toastHandle = (e) => {
     e.stopPropagation();
-    this.props.appAction.setToast('你好，这是一个 Toast，来体验 React 的美妙之处吧。希望能给你带去快乐！');
+    this.props.dispatch(setToast({
+      content: '你好，这是一个 Toast，来体验 React 的美妙之处吧。希望能给你带去快乐！'
+    }));
   };
 
   render() {
@@ -55,10 +56,5 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    homeAction: bindActionCreators(homeAction, dispatch)
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

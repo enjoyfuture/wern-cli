@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import classNames from 'classnames/bind';
-import styles from '../sass/scoreboard';
+import styles from '../sass/scoreboard.scss';
 
 const cx = classNames.bind(styles);
 

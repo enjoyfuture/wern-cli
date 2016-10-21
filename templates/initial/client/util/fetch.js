@@ -3,7 +3,6 @@ import config from '../config';
 import perfect from './perfect';
 // 定义 fetch 默认选项， 看 https://github.com/github/fetch
 const defaultOptions = {
-  method: 'get',
   credentials: 'include', //设置该属性可以把 cookie 信息传到后台
   headers: {
     'Accept': 'application/json',
@@ -18,7 +17,6 @@ function checkStatus(response) {
     return response;
   }
   const error = new Error(response.statusText);
-  error.response = response;
   error.errorCode = status;
   throw error;
 }
@@ -28,10 +26,11 @@ function checkStatus(response) {
  * 根据业务需求，还可以在出错的地方处理相应的功能
  * @param url
  * @param body //往后台传递的 json 参数
+ * @param method // 请求 type  get post delete header put
  * @param options // 可选参数项
  * @returns {Promise.<TResult>}
  */
-function callApi({url, body = {}, options = {}}) {
+function callApi({url, body = {}, method = 'get', options = {}}) {
   if (!url) {
     const error = new Error('请传入 url');
     error.errorCode = 0;
@@ -46,9 +45,9 @@ function callApi({url, body = {}, options = {}}) {
     fullUrl = url.indexOf(config.SERVER_URL) === 0 ? url : config.SERVER_URL + url;
   }
 
-  const _options = {...defaultOptions, ...options};
+  const _options = {method, ...defaultOptions, ...options};
 
-  if (_options.method !== 'get' && _options.method !== 'head') {
+  if (method !== 'get' && method !== 'head') {
     //数据为 null 不要传到后台
     Object.keys(body).forEach((item) => {
       if (body[item] === null) {
@@ -70,10 +69,10 @@ function callApi({url, body = {}, options = {}}) {
         return Promise.reject(error, json);
       }
       return json;
-    })
-    .catch((error) => {
-      return Promise.reject(error);
-    });
+    }).then(
+      response => response,
+      error => error
+    );
 }
 
 export default callApi;

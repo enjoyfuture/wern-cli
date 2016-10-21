@@ -78,15 +78,16 @@ const webpackConfig = {
   module: {
     loaders: [
       // https://github.com/MoOx/eslint-loader
-      /*{
-       test: /\.jsx?$/,
-       exclude: /node_modules.*!/,
-       loader: 'eslint'
-       },*/
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint'
+      },
       {
         test: /\.jsx?$/,
         loader: 'babel', // 'babel-loader' is also a legal name to reference
-        exclude: /node_modules/,
+        exclude: /node_modules|__tests__/,
       },
       // https://github.com/webpack/url-loader
       {

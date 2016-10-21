@@ -112,7 +112,7 @@
     "yoda": 2,//不允许使用 yoda 条件表达式，常量值在前的比较表达式，比如： if(1 === a){ }
 
     // Variables
-    "init-declarations": 2,//声明变量的时候赋值，还是在其他地方赋值，我们可以关闭该规则
+    //"init-declarations": 2,//声明变量的时候赋值，还是在其他地方赋值，我们可以关闭该规则
     "no-catch-shadow": 2,//在IE8或更早的浏览器中，在catch语句中引入的变量 e 会调用全局已定义的变量 e
     "no-delete-var": 2,//不能删除变量，而只能删除属性
     "no-label-var": 2,//使用标签label语句时，不要跟变量同名，建议不要使用标签
@@ -328,7 +328,7 @@
     "ava/no-todo-implementation": "error",
     "ava/no-todo-test": "warn",
     "ava/no-unknown-modifiers": "error",
-    "ava/prefer-async-await": "error",
+    //"ava/prefer-async-await": "error",
     "ava/prefer-power-assert": "off",
     "ava/test-ended": "error",
     "ava/test-title": ["error", "if-multiple"],

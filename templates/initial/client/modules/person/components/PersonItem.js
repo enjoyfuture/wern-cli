@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames/bind';
 import callApi from '../../../util/fetch';
-import styles from '../person'
+import styles from '../person.scss'
 const cx = classNames.bind(styles);
 
 class PersonItem extends Component {
@@ -41,10 +41,8 @@ class PersonItem extends Component {
     const url = 'person';
     const body = this.state.person.toJSON();
 
-    callApi({
-      url, body, options: {
-        method: 'post'
-      }
+    return callApi({
+      url, body, method: 'post'
     }).then(
       (json) => {
         personAction.updatePerson(this.state.person);
@@ -55,7 +53,6 @@ class PersonItem extends Component {
         });
       },
       (error) => {
-
       }
     );
   };
@@ -65,12 +62,10 @@ class PersonItem extends Component {
       e.preventDefault();
       const {personAction} = this.props;
       const url = 'person';
-      callApi({
+      return callApi({
         url, body: {
           id
-        }, options: {
-          method: 'delete'
-        }
+        }, method: 'delete'
       }).then(
         (json) => {
           personAction.deletePerson(id);

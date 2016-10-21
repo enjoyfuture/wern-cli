@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames/bind';
 import Immutable from 'immutable';
 import bootstrap from '../../../util/bootstrapCss';
-import styles from '../film'
+import styles from '../film.scss'
 const cx = classNames.bind(styles);
 
 class Film extends Component {

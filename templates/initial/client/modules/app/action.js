@@ -1,7 +1,7 @@
 import {SET_TOAST, CLEAR_TOAST} from './constant';
 
 // 设置 toast，包括内容和样式
-export function setToast(content = '', effect = 'enter', time = 1500) {
+export function setToast({content = '', effect = 'enter', time = 3000}) {
   return {
     type: SET_TOAST,
     content,

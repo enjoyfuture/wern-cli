@@ -1,8 +1,14 @@
+@import "./reset";
 @import "./components/toast";
 @import "./components/flex";
 
 .main {
-  padding: 0 10px;
+  // padding-bottom 设置为200px 是为了给 footer 留有足够的高度
+  padding: 0 10px 200px;
+}
+
+.container {
+  padding: 10px 0;
 }
 
 .home {

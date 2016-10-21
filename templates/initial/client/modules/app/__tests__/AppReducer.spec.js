@@ -1,17 +1,28 @@
 import test from 'ava';
-import { reducerTest } from 'redux-ava';
-import appReducer, { getShowAddPost } from '../AppReducer';
-import { toggleAddPost } from '../AppActions';
+import Immutable, {Map} from 'immutable';
+import {setToast, clearToast} from '../action';
+import toast from '../reducer';
 
-test('action for TOGGLE_ADD_POST is working', reducerTest(
-  appReducer,
-  { showAddPost: false },
-  toggleAddPost(),
-  { showAddPost: true },
-));
+test('action for setToast is working',
+  t => {
+    const action = setToast({content: 'Toast Test'});
+    const stateAfter = Map({content: 'Toast Test', effect: 'enter', time: 3000});
+    t.true(Immutable.is(toast(undefined, action), stateAfter))
+  }
+);
 
-test('getShowAddPost selector', t => {
-  t.is(getShowAddPost({
-    app: { showAddPost: false },
-  }), false);
+test('action for setToast is working, the case: "error param"', t => {
+  return t.true(Immutable.is(toast(Map(), {error: 'Error Message'}),
+    Map({content: 'Error Message', effect: 'enter', time: 3000})))
 });
+
+test('action for setToast is working, the case: the default value', t => {
+  return t.true(Immutable.is(toast(undefined, {}),
+    Map()))
+});
+
+test('action for clearToast is working',
+  t => {
+    t.true(Immutable.is(toast(Map(), clearToast()), Map({effect: 'leave'})));
+  }
+);

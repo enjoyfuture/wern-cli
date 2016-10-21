@@ -25,13 +25,13 @@ class PersonForm extends Component {
     const url = 'person';
 
     //这里没有走 action, 直接发送 fetch 请求,对于不需要维护状态的请求,我们也可以直接调用 fetch
-    callApi({
-      url, body: {
+    return callApi({
+      url,
+      body: {
         firstName,
         lastName
-      }, options: {
-        method: 'post'
-      }
+      },
+      method: 'post'
     }).then(
       (json) => {
         this.props.personAction.addPerson(Immutable.fromJS(json.data));
@@ -82,6 +82,5 @@ class PersonForm extends Component {
     );
   }
 }
-
 
 export default PersonForm;

@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import classNames from 'classnames/bind';
-import styles from '../scss/nav';
+import styles from '../scss/header.scss';
 const cx = classNames.bind(styles);
 
-const Nav = () => {
+const Header = () => {
   return (
     <nav className={cx('nav')}>
       <Link to="/"
@@ -25,4 +25,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default Header;

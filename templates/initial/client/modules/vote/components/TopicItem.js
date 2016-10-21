@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import classNames from 'classnames/bind';
-import styles from '../sass/topic-item';
+import styles from '../sass/topic-item.scss';
 
 const cx = classNames.bind(styles);
 
@@ -35,7 +35,7 @@ const TopicItem = ({content, id, incrementCount, decrementCount, destroyTopic}) 
 
 TopicItem.propTypes = {
   content: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   incrementCount: PropTypes.func.isRequired,
   decrementCount: PropTypes.func.isRequired,
   destroyTopic: PropTypes.func.isRequired

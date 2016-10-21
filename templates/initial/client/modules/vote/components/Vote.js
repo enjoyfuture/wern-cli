@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import EntryBox from './EntryBox';
 import MainSection from './MainSection';
 import Scoreboard from './Scoreboard';
-import styles from '../sass/vote';
+import styles from '../sass/vote.scss';
 import bootstrap from '../../../util/bootstrapCss';
 
 const cx = classNames.bind(styles);

@@ -1,6 +1,6 @@
 /* Create enhanced history object for router */
 const createSelectLocationState = () => {
-  let prevRoutingState = null, prevRoutingStateJS = null;
+  let prevRoutingState, prevRoutingStateJS;
   return (state) => {
     const routingState = state.get('routing'); // or state.routing
     if (typeof prevRoutingState === 'undefined' || prevRoutingState !== routingState) {

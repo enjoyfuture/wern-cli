@@ -9,6 +9,7 @@ gulp.task('copy:dev', () => {
   const paths = [
     {src: 'client/store/configureStore.dev.js', dest: 'client/store/index.js'},
     {src: 'client/containers/Root.dev.js', dest: 'client/containers/Root.js'},
+    {src: 'node_modules/eruda/eruda.js', dest: 'client/eruda.js'},
   ];
   return $.copy2(paths);
 });

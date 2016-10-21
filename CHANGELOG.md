@@ -1,5 +1,9 @@
 # wern-cli - change log
 
+## 0.2.0  
+
+* 为创建 react 项目添加基于 ava 单元测试
+
 ## 0.1.1  
 
 * 修改 react 模板

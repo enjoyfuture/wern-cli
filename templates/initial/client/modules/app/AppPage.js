@@ -1,25 +1,24 @@
 import React, {Component, PropTypes} from 'react';
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import classNames from 'classnames/bind';
-import Nav from './components/Nav'
-import * as appAction from './action';
-import styles from './scss/main';
+import Header from './components/Header'
+import Footer from './components/Footer';
+import {clearToast} from './action';
+import styles from './scss/main.scss';
 
 const cx = classNames.bind(styles);
 
-class App extends Component {
+export class App extends Component {
 
   static propTypes = {
     children: PropTypes.node,
-    location: PropTypes.object,
     toast: PropTypes.object,
-    appAction: PropTypes.object,
+    dispatch: PropTypes.func.isRequired,
   };
 
   componentDidUpdate() {
     const {
-      toast, appAction
+      toast, dispatch
     } = this.props;
 
     if (toast && toast.get('effect') === 'enter') {
@@ -27,9 +26,9 @@ class App extends Component {
         clearTimeout(this.toastTimeoutId);
       }
       this.toastTimeoutId = setTimeout(() => {
-        appAction.clearToast();
+        dispatch(clearToast());
         this.toastTimeoutId = null;
-      }, 3000);
+      }, toast.get('time'));
     }
   }
 
@@ -42,7 +41,8 @@ class App extends Component {
     const effect = toast.get('effect');
 
     return (
-      <div className={cx('toast-panel', 'flex', 'flex-items-center', 'flex-items-middle', effect || '')}>
+      <div
+        className={cx('toast-panel', 'flex', 'flex-items-center', 'flex-items-middle', effect || '')}>
         <div className={cx('toast')}>{content}</div>
       </div>
     );
@@ -50,17 +50,17 @@ class App extends Component {
 
   render() {
     const {
-      children, location, appAction
+      children
     } = this.props;
 
     return (
-      <div className={cx('main')}>
+      <div className={styles.main}>
         {this.renderToast()}
-        <Nav />
-        {children && React.cloneElement(children, {
-          key: location.pathname,
-          appAction
-        })}
+        <Header />
+        <div className={styles.container}>
+          {children}
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -72,10 +72,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    appAction: bindActionCreators(appAction, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

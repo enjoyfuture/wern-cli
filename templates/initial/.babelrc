@@ -8,6 +8,8 @@
     "transform-object-rest-spread", // 支持对象 rest 预发
     "transform-flow-strip-types", // 可以指定函数参数 类型
     "transform-class-properties", //解析类属性，静态和实例的属性
-    "transform-decorators-legacy" // 编译 es7 decorator
+    "transform-decorators-legacy", // 编译 es7 decorator
+    "espower",
+    "transform-runtime"
   ]
 }

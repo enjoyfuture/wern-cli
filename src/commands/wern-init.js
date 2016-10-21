@@ -79,6 +79,7 @@ fullname().then((name) => {
     actionsInst.copy('.eslintrc', '.eslintrc');
     actionsInst.copy('gitignore', '.gitignore');
     actionsInst.copy('gulpfile.babel.js', 'gulpfile.babel.js');
+    actionsInst.copy('LICENSE', 'LICENSE');
     actionsInst.copy('webpack.config.dev.babel.js', 'webpack.config.dev.babel.js');
     actionsInst.copy('webpack.config.dll.babel.js', 'webpack.config.dll.babel.js');
     actionsInst.copy('webpack.config.prod.babel.js', 'webpack.config.prod.babel.js');
